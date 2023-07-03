@@ -1,1 +1,1 @@
-# CodeUp-basic100
+# CodeUp에서 basic100을 풉니다.
