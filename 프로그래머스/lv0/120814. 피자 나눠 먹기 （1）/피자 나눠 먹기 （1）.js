@@ -1,9 +1,8 @@
 function solution(n) {
-    let answer;
+    // answer 선언하지 않고 if - else 문 안에서 return
     if (n % 7 !== 0){
-        answer = Math.floor(n / 7) + 1;
+        return Math.floor(n / 7) + 1;
     } else{
-        answer = Math.floor(n / 7);
+        return Math.floor(n / 7);
     }
-    return answer;
 }
