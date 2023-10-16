@@ -10,6 +10,8 @@ remove_two = 0
 for j in range(0, len(n) - 1):
     for k in range(j + 1, len(n)):
         if sum - n[j] - n[k] == 100:
+            # n.remove(n[j])
+            # n.remove(n[k]) => 위에서 n[j] 제거하면 n[k] 달라질 수 있음
             remove_one = n[j]
             remove_two = n[k]
 
