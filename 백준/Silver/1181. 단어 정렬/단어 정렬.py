@@ -7,5 +7,5 @@ tc = list(set(tc))  # sort()는 리스트 메서드이므로 다시 리스트형
 
 # 길이 짧은 순으로 정렬 후 길이 같으면 사전 순으로 정렬
 tc.sort(key = lambda x : (len(x), x))
-for i in tc:
-    print(i)
+
+print("\n".join(tc))
