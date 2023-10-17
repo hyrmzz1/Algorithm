@@ -1,22 +1,17 @@
 import sys
-
-n = [int(sys.stdin.readline().rstrip()) for i in range(9)]
-
-sum = sum(n)
+from itertools import combinations
+n = [int(sys.stdin.readline().rstrip()) for _ in range(9)]
 
 remove_one = 0
 remove_two = 0
-# 2개의 요소를 뻈을 떄 100이 나오면 -> n에서 두개 요소 삭제
-for j in range(0, len(n) - 1):
-    for k in range(j + 1, len(n)):
-        if sum - n[j] - n[k] == 100:
-            # n.remove(n[j])
-            # n.remove(n[k]) => 위에서 n[j] 제거하면 n[k] 달라질 수 있음
-            remove_one = n[j]
-            remove_two = n[k]
-
+# n에서 합이 sum - 100 인 두 요소 찾기
+for i in combinations(n, 2):
+    if sum(n) - sum(i) == 100:
+        remove_one, remove_two = i
+        break
 n.remove(remove_one)
 n.remove(remove_two)
+
 n.sort()
 for l in n:
     print(l)
