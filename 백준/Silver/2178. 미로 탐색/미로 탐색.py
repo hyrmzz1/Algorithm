@@ -25,7 +25,7 @@ def bfs(x, y):
                 continue
             if graph[nx][ny] != 1:
                 continue
-            if graph[nx][ny] == 1:
+            else:
                 graph[nx][ny] = graph[x][y] + 1
                 q.append((nx, ny))
     return graph[n-1][m-1]
