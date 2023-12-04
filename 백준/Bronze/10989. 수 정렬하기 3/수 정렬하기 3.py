@@ -8,4 +8,4 @@ for _ in range(n):
 
 for i in range(len(count)): # 인덱스를
     for _ in range(count[i]):   # 값만큼
-        print(i, end = ' ')    # 출력
+        print(i)    # 출력
