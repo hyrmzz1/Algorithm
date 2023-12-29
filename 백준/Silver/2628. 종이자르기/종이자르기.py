@@ -14,12 +14,10 @@ for _ in range(n):
 height.sort()
 width.sort()
 
-h_list = []
-w_list = []
+max_area = 0
 for i in range(1, len(height)):
-    x = height[i] - height[i-1]
-    h_list.append(x)
-for j in range(1, len(width)):
-    y = width[j] - width[j-1]
-    w_list.append(y)
-print(max(h_list)*max(w_list))
+    for j in range(1, len(width)):
+        x = height[i] - height[i-1]
+        y = width[j] - width[j-1]
+        max_area = max(x*y, max_area)
+print(max_area)
