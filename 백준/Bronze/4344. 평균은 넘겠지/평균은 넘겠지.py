@@ -8,5 +8,5 @@ for _ in range(c):
     for i in n[1:]:
         if i > avg:
             cnt += 1
-    rate = cnt * 100 / n[0]
-    print(f'{rate:.3f}%')
+    rate = cnt / n[0]
+    print(f'{rate:.3%}')
