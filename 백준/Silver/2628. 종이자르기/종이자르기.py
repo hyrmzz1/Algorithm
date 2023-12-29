@@ -10,12 +10,16 @@ for _ in range(n):
         height.append(b)
     else:
         width.append(b)
-        
+
 height.sort()
 width.sort()
 
-print(
-    max([width[i] - width[i - 1] for i in range(1, len(width))])
-    *
-    max([height[i] - height[i - 1] for i in range(1, len(height))])
-)
+h_list = []
+w_list = []
+for i in range(1, len(height)):
+    x = height[i] - height[i-1]
+    h_list.append(x)
+for j in range(1, len(width)):
+    y = width[j] - width[j-1]
+    w_list.append(y)
+print(max(h_list)*max(w_list))
