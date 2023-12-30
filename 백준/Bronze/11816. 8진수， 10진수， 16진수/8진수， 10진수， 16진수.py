@@ -1,4 +1,3 @@
-# 숫자의 합
 import sys
 x = sys.stdin.readline().rstrip()
 
@@ -8,4 +7,4 @@ if x[0] == "0":
     else:   # 8진수
         print(int(x, 8))
 else:   # 10진수
-    print(int(x))
+    print(x)
