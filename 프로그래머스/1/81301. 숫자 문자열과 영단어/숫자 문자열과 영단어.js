@@ -1,17 +1,10 @@
 function solution(s) {
-    var answer = 0;
+    let words = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];    // index: 0~9. 총 10개
     
-    s = s.replaceAll("zero", "0")
-    s = s.replaceAll("one", "1")
-    s = s.replaceAll("two", "2")
-    s = s.replaceAll("three", "3")
-    s = s.replaceAll("four", "4")
-    s = s.replaceAll("five", "5")
-    s = s.replaceAll("six", "6")
-    s = s.replaceAll("seven", "7")
-    s = s.replaceAll("eight", "8")
-    s = s.replaceAll("nine", "9")
+    for(let i = 0; i < words.length; i++){
+        s = s.split(words[i]);
+        s = s.join(i)
+    }
     
-    answer = Number(s)
-    return answer;
+    return Number(s);
 }
