@@ -1,14 +1,9 @@
 function solution(lottos, win_nums) {
-    let maxRank = 0, minRank = 0, cnt = 0, zero = 0;
     let rank = [6, 6, 5, 4, 3, 2, 1]    // 등수: rank[cnt]
     
-    for (let i  = 0; i < lottos.length; i++){
-        if (win_nums.includes(lottos[i])) cnt++;
-        if (lottos[i] === 0) zero++;
-    }
+    // filter()는 조건에 만족하는 요소만으로 이루어진 새로운 배열을 반환함.
+    const cnt = lottos.filter(num => win_nums.includes(num)).length;
+    const zero = lottos.filter(num => num === 0).length;
     
-    minRank = rank[cnt]
-    maxRank = rank[cnt + zero]
-    
-    return [maxRank, minRank];
+    return [rank[cnt + zero], rank[cnt]];
 }
