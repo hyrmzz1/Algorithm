@@ -1,14 +1,6 @@
 function solution(survey, choices) {
     let answer = '';    // 성격 유형
-    const score = {};
-    score['R'] = 0;
-    score['T'] = 0;
-    score['C'] = 0;
-    score['F'] = 0;
-    score['J'] = 0;
-    score['M'] = 0;
-    score['A'] = 0;
-    score['N'] = 0;
+    const score =  { R: 0, T: 0, C: 0, F: 0, J: 0, M: 0, A: 0, N: 0 };  // dictionary
     
     for (let i = 0; i < survey.length; i++) {
         if (choices[i] === 1) score[survey[i][0]] += 3;
