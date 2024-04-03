@@ -8,15 +8,11 @@ function solution(id_list, report, k) { // 전체 유저, 누가 누구 신고�
     });
     
     // 신고한 유저 기록, 신고당한 횟수 기록
-    report.forEach(i => {
-        let a = i.split(' ')[0];
-        let b = i.split(' ')[1];
-        
-        // 동일 유저 여러번 신고해도 신고 횟수 늘어나지 않음
-        if (!user.find(u => u.id === a).report_id.includes(b)) {
-            user.find(u => u.id === a).report_id.push(b);
-            user.find(u => u.id === b).reported_cnt += 1;
-        }
+    const reports = [...new Set(report)].map(a=>{return a.split(' ')});
+    
+    reports.forEach(i => {
+        user.find(u => u.id === i[0]).report_id.push(i[1]);
+        user.find(u => u.id === i[1]).reported_cnt += 1;
     })
     
     // 정지 유저
