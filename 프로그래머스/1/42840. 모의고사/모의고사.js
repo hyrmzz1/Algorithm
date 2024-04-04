@@ -26,9 +26,9 @@ function solution(answers) {
     }
     
     for (let i = 0; i < answers.length; i++) {
-        if (one.type[i] === answers[i]) one.ans += 1;
-        if (two.type[i] === answers[i]) two.ans += 1;
-        if (three.type[i] === answers[i]) three.ans += 1;
+        [one, two, three].forEach(obj => {
+            if (obj.type[i] === answers[i]) obj.ans += 1;
+        });
     }
     
     let maxAns = 0, maxPerson = [];
