@@ -39,6 +39,7 @@ function solution(k, dungeons) {
         })
         
         ans = Math.max(ans, cnt)
+        if (ans === dungeons.length) return false;
     })
     
     return ans;
