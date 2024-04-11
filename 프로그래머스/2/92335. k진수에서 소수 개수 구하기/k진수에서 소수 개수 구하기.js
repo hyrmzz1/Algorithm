@@ -1,11 +1,9 @@
 function solution(n, k) {
-    const primeNum = n.toString(k).split('0').filter(num => num !== '').map(Number);   // n을 k진수로 변환하고 0 기준으로 슬라이싱
+    const primeNum = n.toString(k).split('0').filter(num => num > 1).map(Number);   // n을 k진수로 변환하고 0 기준으로 슬라이싱, 1보다 큰 요소로만 구성
     
     // 소수 카운팅
     let primeCnt = 0;
     primeNum.forEach(num => {
-        if (num === 1) return false;
-        
         for (let i = 2; i <= Math.sqrt(num); i++) {
             if (num % i === 0) return false;
         }
