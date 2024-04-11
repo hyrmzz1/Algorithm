@@ -1,46 +1,20 @@
-function permutate(arr) {
-    const cases = [];   // 탐험 순서 경우의 수
+function solution(k, dungeons) {
+    let ans = 0;
+    const visited = new Array(dungeons.length).fill(0);
     
-    // DFS
-    const dfs = (i, arr) => {
-        // base condition
-        if (i === arr.length) {
-            return cases.push([...arr]);
-        }
+    function dfs(k, cnt) {
+        ans = Math.max(ans, cnt)
+        if (ans === dungeons.length) return;
         
-        for (let j = i; j < arr.length; j++) {
-            // swap
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-            
-            //dfs
-            dfs(i + 1, arr);
-            
-            // swap back (백트랙킹)
-            [arr[i], arr[j]] = [arr[j], arr[i]];
+        for (let i = 0; i < dungeons.length; i++){
+            if (k >= dungeons[i][0] && !visited[i]) {
+                visited[i] = 1;
+                dfs(k - dungeons[i][1], cnt + 1);
+                visited[i] = 0;
+            }
         }
     }
-    dfs(0, arr);
-    return cases;
-}
-
-function solution(k, dungeons) {
-    const casePath = permutate(dungeons.map((dungeon, idx) => idx));
-    let ans = 0;
     
-    casePath.forEach(path => {
-        let piro = k;
-        let cnt = 0;
-        
-        path.forEach(i => {
-            if (piro >= dungeons[i][0]) {
-                piro -= dungeons[i][1];
-                cnt ++;
-            } else return false;
-        })
-        
-        ans = Math.max(ans, cnt)
-        if (ans === dungeons.length) return false;
-    })
-    
+    dfs(k, 0);
     return ans;
 }
