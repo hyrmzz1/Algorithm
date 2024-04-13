@@ -5,7 +5,7 @@ function solution(n, lost, reserve) {
     lost.forEach(n => { arr[n] -= 1; }) // 잃어버렸다면 체육복 -1
     reserve.forEach(n => { arr[n] += 1; })  // 여분 있다면 체육복 +1
     
-    for (let i = 1; i <= arr.length; i++) {
+    for (let i = 1; i < arr.length; i++) {
         if (arr[i] === 0) {
             if (arr[i-1] > 1) {
                 arr[i] += 1;
