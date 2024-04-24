@@ -1,13 +1,3 @@
-function isPrime(num) {
-    if (num <= 1) return false;
-    
-    for (let i = 2; i <= Math.sqrt(num); i++) {
-        if (num % i === 0) return false;
-    }
-    
-    return true;
-}
-
 function solution(nums) {
     const sum = []
     for (let i = 0; i < nums.length - 2; i++) {
@@ -21,7 +11,10 @@ function solution(nums) {
     // 소수 판별
     let cnt = 0;
     sum.forEach(s => {
-        if(isPrime(s)) cnt++;
+        for (let i = 2; i <= Math.sqrt(s); i++) {
+            if (s % i === 0) return false;
+        }
+        cnt++;
     })
     
     return cnt;
