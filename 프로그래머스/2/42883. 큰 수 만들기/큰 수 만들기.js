@@ -1,4 +1,5 @@
 function solution(number, k) {
+    const len = number.length - k;
     const maxNum = [];
     
     for (let i = 0; i < number.length; i++) {
@@ -6,11 +7,9 @@ function solution(number, k) {
             maxNum.pop();
             k--;
         }
-
-        if (maxNum.length < number.length - k) {
-            maxNum.push(number[i]);
-        }
+        
+        maxNum.push(number[i]);
     }
     
-    return maxNum.join('');
+    return maxNum.slice(0, len).join('');
 }
