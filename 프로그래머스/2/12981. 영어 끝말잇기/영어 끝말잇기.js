@@ -8,6 +8,5 @@ function solution(n, words) {
         }
     }
     
-    if (idx === -1) return [0, 0]
-    else return [idx % n + 1, Math.floor(idx / n) + 1];
+    return idx === -1 ? [0, 0] : [idx % n + 1, Math.floor(idx / n) + 1];
 }
