@@ -12,9 +12,7 @@ function unionParent(parent, a, b) {
     if (aParent < bParent) {
         // b와 같은 집합에 속하는 요소들도 a와 연결
         for (let i = 0; i < parent.length; i++) {
-            if (parent[i] === bParent) {
-                parent[i] = aParent;
-            }
+            if (parent[i] === bParent) parent[i] = aParent;
         }
     } else {
         // a와 같은 집합에 속하는 요소들도 b와 연결
