@@ -3,7 +3,7 @@ function solution(maps) {
     const m = maps[0].length - 1;   // col
     
     // 상대 팀 진영 도착 불가
-    if (maps[n][m - 1] === 0 && maps[n - 1][m] === 0) return -1;
+    // if (maps[n][m - 1] === 0 && maps[n - 1][m] === 0) return -1;
     
     // 이동 방향
     const dx = [-1, 1, 0, 0];
@@ -28,5 +28,6 @@ function solution(maps) {
             }
         }
     }
-    return -1;
+    
+    return -1;  // 상대 팀 진영 접근 불가
 }
