@@ -1,25 +1,19 @@
 //todo
 function solution(n, t, m, p) {
-    const num = [];
+    let str = ''
     
     let i = 0;
-    while (num.length < m * t) {
+    while (str.length < m * t) {
         let elem = i.toString(n).toUpperCase().split('');
-        num.push(elem);
+        str += elem.join('');
         i++;
     }
     
-    const str = num.flat();
-    
-    let answer = ''
-    let cnt = 0
-    for (let j = 0; j < str.length; j++) {
-        if (cnt === t) break;
-        
-        if (j % m === p - 1) {
-            answer += str[j];
-            cnt++;
-        }
+    let answer = '';
+    let j = p - 1;
+    while (answer.length < t) {
+        answer += str[j];
+        j += m;
     }
     
     return answer;
