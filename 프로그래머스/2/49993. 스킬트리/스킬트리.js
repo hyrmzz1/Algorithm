@@ -13,11 +13,10 @@ function solution(skill, skillTrees) {
         if (elem.length === 0) answer++;    // 선행 스킬 포함 X
         else {
             // 스킬 순서 따지기
-            const elemIdx = elem.split('').map(e => skills.indexOf(e));
             let isValid = true;
             
-            for (let i = 0; i < elemIdx.length; i++) {
-                if (elemIdx[i] !== i) {
+            for (let i = 0; i < elem.length; i++) {
+                if (elem[i] !== skills[i]) {
                     isValid = false;
                     break;
                 }
