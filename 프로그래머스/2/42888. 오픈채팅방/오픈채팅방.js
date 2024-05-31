@@ -1,21 +1,17 @@
 function solution(record) {
-    const records = new Array(record.length);
-    record.forEach((elem, idx) => {
-        records[idx] = elem.split(' ');
-    })
-    
     const obj = new Object();
     const message = [];
     const temp = [];
     
-    records.forEach(elem => {
-        if (elem[0] === "Enter") {
-            obj[elem[1]] = elem[2];
-            temp.push(elem[1] + "님이 들어왔습니다.");
-        } else if (elem[0] === "Leave") {
-            temp.push(elem[1] + "님이 나갔습니다.");
-        } else {    // Change
-            obj[elem[1]] = elem[2];
+    record.forEach(elem => {
+        const [action, uid, nickname] = elem.split(' ');
+        if (action === "Enter") {
+            obj[uid] = nickname;
+            temp.push(uid + "님이 들어왔습니다.");
+        } else if (action === "Leave") {
+            temp.push(uid + "님이 나갔습니다.");
+        } else {    // action === "Change"
+            obj[uid] = nickname;
         }
     })
     
