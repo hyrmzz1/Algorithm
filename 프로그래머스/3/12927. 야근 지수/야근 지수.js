@@ -10,7 +10,9 @@ function solution(n, works) {
             if (works[i] === max) {
                 works[i]--;
                 n--;
-            } if (!n) break;
+            } else continue;
+            
+            if (!n) break;
         }
     }
     
