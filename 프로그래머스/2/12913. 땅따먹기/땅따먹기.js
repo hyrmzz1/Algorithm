@@ -1,9 +1,8 @@
 function solution(land) {
     for (let i = 1; i < land.length; i++) {
-        land[i][0] += Math.max(land[i - 1][1], land[i - 1][2], land[i - 1][3]);
-        land[i][1] += Math.max(land[i - 1][0], land[i - 1][2], land[i - 1][3]);
-        land[i][2] += Math.max(land[i - 1][0], land[i - 1][1], land[i - 1][3]);
-        land[i][3] += Math.max(land[i - 1][0], land[i - 1][1], land[i - 1][2]);
+        for (let j = 0; j < 4; j++) {
+            land[i][j] += Math.max(land[i - 1][(j + 1) % 4], land[i - 1][(j + 2) % 4], land[i - 1][(j + 3) % 4]);
+        }
     }
     
     return Math.max(...land[land.length-1]);
