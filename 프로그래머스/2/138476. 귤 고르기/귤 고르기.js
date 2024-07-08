@@ -6,13 +6,13 @@ function solution(k, tangerine) {
         map.has(t) ? map.set(t, map.get(t) + 1) : map.set(t, 1);
     })
     
-    const mapSort = new Map([...map.entries()].sort((a, b) => b[1] - a[1]));
+    const mapSort = [...map.entries()].sort((a, b) => a[1] - b[1]);
     
     let type = 0;
-    for (let value of mapSort.values()) {
+    while(k > 0) {
         type++;
+        const [key, value] = mapSort.pop();
         k -= value;
-        if (k <= 0) break;
     }
     
     return type;
