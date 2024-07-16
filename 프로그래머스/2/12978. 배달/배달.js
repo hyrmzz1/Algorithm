@@ -2,7 +2,7 @@ function solution(N, road, K) {
     const dist = new Array(N + 1).fill(500000)    // 1번 -> N번 마을로 가는 최단 거리
     dist[1] = 0; // 출발 지점
     
-    const graph = Array.from({ length: N + 1 }, () => new Array(N + 1).fill(Infinity));   // 인접 리스트
+    const graph = Array.from({ length: N + 1 }, () => new Array(N + 1).fill(500000));   // 인접 리스트
     road.forEach(([start, end, time]) => {
         graph[start][end] = Math.min(graph[start][end], time);
         graph[end][start] = Math.min(graph[end][start], time);
@@ -14,9 +14,9 @@ function solution(N, road, K) {
         const from = queue.pop();
         
         graph[from].forEach((cost, to) => {
-            if (graph[from][to] !== Infinity) {   // 인접 && 방문 안한 노드
-                if (dist[to] > dist[from] + cost) {
-                    dist[to] = dist[from] + cost;    // 1->to 최단경로 갱신
+            if (graph[from][to] !== 500000) {   // 인접 노드
+                if (dist[to] > dist[from] + cost) { // 최단 경로 갱신
+                    dist[to] = dist[from] + cost;
                     queue.push(to);
                 }
             }
