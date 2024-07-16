@@ -4,6 +4,7 @@ function solution(sequence, k) {
     let left = 0;
     let right = 0;
     let sum = sequence[0];
+    let seqLen = sequence.length;   // 길이 짧은 수열 찾기 위함
     
     while (right < sequence.length) {
         if (sum < k) {
@@ -11,13 +12,16 @@ function solution(sequence, k) {
         } else if (sum > k) {
             sum -= sequence[left++];
         } else {
-            answer.push([left, right, right - left]);
+            if (seqLen > right - left) {
+                answer.pop();
+                answer.push([left, right]);
+                seqLen = right - left;
+            }
             sum -= sequence[left++];
         }
     }
     
-    answer.sort((a, b) => a[2] - b[2]);
-    return answer[0].slice(0, 2);
+    return answer[0];
 }
 
 // 시간 초과
