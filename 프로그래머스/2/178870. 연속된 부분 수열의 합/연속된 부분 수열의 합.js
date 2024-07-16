@@ -1,6 +1,6 @@
 // 투포인터 이용
 function solution(sequence, k) {
-    const answer = [];
+    const answer = [];  // [left, right]
     let left = 0;
     let right = 0;
     let sum = sequence[0];
@@ -13,15 +13,15 @@ function solution(sequence, k) {
             sum -= sequence[left++];
         } else {
             if (seqLen > right - left) {
-                answer.pop();
-                answer.push([left, right]);
+                answer[0] = left;
+                answer[1] = right;
                 seqLen = right - left;
             }
             sum -= sequence[left++];
         }
     }
     
-    return answer[0];
+    return answer;
 }
 
 // 시간 초과
