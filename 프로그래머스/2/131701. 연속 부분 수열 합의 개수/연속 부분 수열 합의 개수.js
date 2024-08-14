@@ -1,7 +1,7 @@
 function solution(elements) {
     const answer = new Set();
     const len = elements.length;
-    elements.push(...elements);
+    elements = elements.concat(...elements)
     
     // 연속 부분 수열 길이
     for (let i = 1; i <= len; i++) {
