@@ -3,7 +3,8 @@
 // 3. 배열 요소 합 반환
 
 function solution(number, limit, power) {
-    const answer = new Array(number + 1).fill(0);
+    // const answer = new Array(number + 1).fill(0);
+    const answer = [];
     
     // answer[i]에 i의 약수 개수 저장
     for(let i = 1; i <= number; i++) {
@@ -12,12 +13,13 @@ function solution(number, limit, power) {
         for (let j = 1; j <= Math.sqrt(i); j++) {
             if (j === Math.sqrt(i)) {
                 cnt++;
-            } else if (i % j === 0) {
-                cnt += 2;
+                break;
             }
+            
+            if (i % j === 0) cnt += 2;
         }
         
-        answer[i] = cnt > limit ? power : cnt;
+        cnt > limit ? answer.push(power) : answer.push(cnt);
     }
     
     return answer.reduce((acc, curr) => acc + curr);
