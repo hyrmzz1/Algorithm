@@ -6,7 +6,7 @@ function solution(n) {
     
     for (let i = 2; i <= Math.sqrt(n); i++) {
         if (isPrime[i] === true) {
-            for (let j = i + i; j < isPrime.length; j += i) {
+            for (let j = i * i; j <= n; j += i) {
                 isPrime[j] = false;
             }
         }
