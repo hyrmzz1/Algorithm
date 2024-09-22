@@ -45,9 +45,11 @@ function solution(places) {
                 if (place[i][j] === "P") {
                     if (BFS(i, j, place) === 0) {
                         isSafe = false;
+                        break;
                     }
                 }
             }
+            if (!isSafe) break;
         }
         
         isSafe ? answer.push(1) : answer.push(0);
