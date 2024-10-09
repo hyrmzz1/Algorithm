@@ -1,5 +1,5 @@
 function solution(X, Y) {
-    let pair = '';    // 짝꿍
+    let pair = [];    // 짝꿍
     const xMap = new Map();
     const yMap = new Map();
     
@@ -15,14 +15,14 @@ function solution(X, Y) {
     for (let [key, xValue] of xMap) {
         if (yMap.has(key)) {
             const yValue = yMap.get(key);
-            pair += key.repeat(Math.min(xValue, yValue));
+            pair.push(key.repeat(Math.min(xValue, yValue)))
         }
     }
     
     if (!pair.length) {
         return '-1';
     } else {
-        const answer = pair.split('').sort((a, b) => b - a);
-        return answer[0] === '0' ? '0' : answer.join('')
+        const answer = pair.join('').split('').sort((a, b) => b - a);
+        return answer[0] === '0' ? '0' : answer.join('');
     }
 }
