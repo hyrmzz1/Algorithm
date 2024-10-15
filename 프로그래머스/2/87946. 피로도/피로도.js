@@ -1,20 +1,21 @@
 function solution(k, dungeons) {
-    let ans = 0;
-    const visited = new Array(dungeons.length).fill(0);
+    let answer = 0;
+    const visited = new Array(dungeons.length).fill(false);
     
-    function dfs(k, cnt) {
-        ans = Math.max(ans, cnt)
-        if (ans === dungeons.length) return;
+    const DFS = (piro, cnt) => {
+        answer = Math.max(cnt, answer);
         
-        for (let i = 0; i < dungeons.length; i++){
-            if (k >= dungeons[i][0] && !visited[i]) {
-                visited[i] = 1;
-                dfs(k - dungeons[i][1], cnt + 1);
-                visited[i] = 0;
+        // dungeons[i]에 방문하지 않았고, piro가 dungeons[i][0] 이상일 때
+        for (let i = 0; i < dungeons.length; i++) {
+            if (!visited[i] && piro >= dungeons[i][0]) {
+                visited[i] = true;
+                DFS(piro - dungeons[i][1], cnt + 1);    // ++cnt 사용시 재귀 호출에서 돌아온 후에도 증가된 값이 유지되어 다음 경로를 탐색할 때도 누적된 값이 사용됨.
+                visited[i] = false;
             }
         }
     }
     
-    dfs(k, 0);
-    return ans;
+    DFS(k, 0);
+    
+    return answer;
 }
