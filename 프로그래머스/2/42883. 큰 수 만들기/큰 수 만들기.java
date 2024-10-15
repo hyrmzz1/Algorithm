@@ -13,15 +13,11 @@ class Solution {
             answer.add(num);
         }
         
-        String answer_str = "";
-        int len = 0;
-        for (char elem: answer) {
-            answer_str += elem;
-            len++;
-            
-            if (len >= number.length() - k) break;
+        StringBuilder answerStr = new StringBuilder();
+        for (int i = 0; i < Math.min(answer.size(), number.length() - k); i++) {
+            answerStr.append(answer.get(i));
         }
-        
-        return answer_str;
+
+        return answerStr.toString();  // StringBuilder는 객체이므로 String 타입으로 변환 후 반환
     }
 }
