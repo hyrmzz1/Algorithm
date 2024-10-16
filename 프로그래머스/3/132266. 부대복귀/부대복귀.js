@@ -29,11 +29,7 @@ function solution(n, roads, sources, destination) {
     }
     
     // 2. source에서 destination까지의 최단 경로 구하고 answer에 push
-    sources.forEach(source => {
-        answer.push(dist[source] === Infinity ? -1 : dist[source]);
-    })
-    
-    return answer;
+    return sources.map(source => dist[source] === Infinity ? -1 : dist[source])
 }
 
 // 시간 초과 발생 코드 -> 개선 방안: 매번 BFS 호출 X. 단일 BFS로 최단 거리를 모두 구하기
