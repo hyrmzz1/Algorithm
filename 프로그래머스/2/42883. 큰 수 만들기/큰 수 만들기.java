@@ -2,15 +2,15 @@ import java.util.*;
 
 class Solution {
     public String solution(String number, int k) {
-        ArrayList<Character> answer = new ArrayList<>();    // List<Character> answer = new ArrayList<>();
+        Stack<Character> answer = new Stack<>();
         
         for (char num: number.toCharArray()) {
-            while (k > 0 && !answer.isEmpty() && num > answer.get(answer.size() - 1)) {
-                answer.remove(answer.size() - 1);
+            while (k > 0 && !answer.isEmpty() && num > answer.peek()) {
+                answer.pop();
                 k--;
             }
             
-            answer.add(num);
+            answer.push(num);
         }
         
         StringBuilder answerStr = new StringBuilder();
