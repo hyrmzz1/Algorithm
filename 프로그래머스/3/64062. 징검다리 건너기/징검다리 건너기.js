@@ -12,25 +12,20 @@ function solution(stones, k) {
     let max = 200000000;    // 최대로 밟을 수 있는 수이므로, 지나갈 수 있는 사람의 최대값
     
     // 아래 for문 없어도 효율성 검사 통과함
-    for (let stone of stones) {
-        min = Math.min(min, stone);
-        max = Math.max(max, stone);
-    }
+    // for (let stone of stones) {
+    //     min = Math.min(min, stone);
+    //     max = Math.max(max, stone);
+    // }
     
     // n명이 징검다리를 건널 수 있는가
     const isPossible = (n) => {
         let cnt = 0;    // 연속으로 놓여진 숫자가 0인 디딤돌의 개수
         
         for (let stone of stones) {
-            if (stone - n <= 0) {
-                cnt++;
-            } else {
-                cnt = 0;    // 숫자가 0 이하인 디딤돌의 개수가 연속하지 않으므로 초기화
-            }
+            // n명이 건널 수 없는 디딤돌 연속으로 안나오면 cnt 초기화
+            stone - n <= 0 ? cnt++ : cnt = 0;
             
-            if (cnt === k) {
-                return false;   // 건널 수 없음
-            }
+            if (cnt === k) return false;   // 건널 수 없음
         }
         
         return true;    // n명은 징검다리를 건널 수 있음
@@ -39,11 +34,7 @@ function solution(stones, k) {
     while (min < max) {
         let mid = Math.floor((min + max) / 2)
         
-        if (isPossible(mid)) {
-            min = mid + 1;
-        } else {
-            max = mid;
-        }
+        isPossible(mid) ? min = mid + 1 : max = mid;
     }
 
     return max;
