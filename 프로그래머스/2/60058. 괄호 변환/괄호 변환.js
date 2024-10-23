@@ -15,15 +15,15 @@ const seperate = (str) => {
 
 // 올바른 괄호 문자열인지 확인
 const correct = (str) => {
-    const stack = [];
+    let balance = 0;
     
     for (let s of str) {
         if (s === "(") {
-            stack.push(s);
+            balance++;
         } else {
-            if (stack.length === 0) return false;   // 짝 맞지 않음
+            if (balance === 0) return false;   // 짝 맞지 않음
             
-            stack.pop();
+            balance--;
         }
     }
     
