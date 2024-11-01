@@ -13,6 +13,7 @@ medalCnt.sort((a, b) => b[1] - a[1] || b[2] - a[2] || b[3] - a[3]);
 
 // 순위 계산
 let rank = 1;
+let currRank = 1;
 let prevG = medalCnt[0][1];
 let prevS = medalCnt[0][2];
 let prevC = medalCnt[0][3];
@@ -23,7 +24,7 @@ for (let i = 0; i < medalCnt.length; i++) {
     medalCnt[i][2] !== prevS ||
     medalCnt[i][3] !== prevC
   ) {
-    rank++;
+    rank = currRank;    // 동점자 아닐 경우 순위 갱신
 
     // 점수 갱신
     prevG = medalCnt[i][1];
@@ -32,7 +33,9 @@ for (let i = 0; i < medalCnt.length; i++) {
   }
 
   if (medalCnt[i][0] === k) {
-      console.log(rank);
-      break;
+    console.log(rank);
+    break;
   }
+
+  currRank++;
 }
