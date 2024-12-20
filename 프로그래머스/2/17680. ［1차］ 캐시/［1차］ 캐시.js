@@ -7,13 +7,11 @@ function solution(cacheSize, cities) {
     
     cities.forEach(city => {
         const idx = queue.indexOf(city);
-        if (idx === -1) {
-            // cache miss
+        if (idx === -1) {   // cache miss
             answer += 5;
             queue.shift();
-            queue.push(city.toLowerCase());
-        } else {
-            // cache hit
+            queue.push(city);
+        } else {    // cache hit
             answer += 1;
             queue.splice(idx, 1);
             queue.push(city);
