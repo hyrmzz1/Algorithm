@@ -1,23 +1,24 @@
 function solution(cacheSize, cities) {
-    let cache = [];
-    let runTime = 0;
+    let answer = 0;
+    const queue = new Array(cacheSize); // 선입선출
     
-    // 예외처리
     if (cacheSize === 0) return cities.length * 5;
+    cities = cities.map(city => city.toLowerCase());
     
     cities.forEach(city => {
-        const cityName = city.toLowerCase();   // 대소문자 구분하지 않기 위함
-        
-        if (cache.includes(cityName)) { // cache hit
-            cache = cache.filter(x => x !== cityName);  // 도시 빼고
-            cache.push(cityName);   // 제일 뒤로 넣기
-            runTime += 1;
-        } else {    // cache miss
-            if (cache.length === cacheSize) cache.shift();
-            cache.push(cityName);
-            runTime += 5;
+        const idx = queue.indexOf(city);
+        if (idx === -1) {
+            // cache miss
+            answer += 5;
+            queue.shift();
+            queue.push(city.toLowerCase());
+        } else {
+            // cache hit
+            answer += 1;
+            queue.splice(idx, 1);
+            queue.push(city);
         }
     })
     
-    return runTime;
+    return answer;
 }
