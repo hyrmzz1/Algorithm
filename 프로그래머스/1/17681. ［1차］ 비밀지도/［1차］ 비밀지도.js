@@ -1,5 +1,5 @@
 function solution(n, arr1, arr2) {
-    const answer = [];
+    const answer = new Array(n);
     
     // 1. n x n 배열로 변환
     for (let i = 0; i < arr1.length; i++) {
@@ -11,13 +11,9 @@ function solution(n, arr1, arr2) {
     for (let i = 0; i < arr1.length; i++) {
         let r = "";
         for (let j = 0; j < arr1[0].length; j++) {
-            if (arr1[i][j] === "0" && arr2[i][j] === "0") {
-                r += " ";
-            } else {
-                r += "#";
-            }
+            r += arr1[i][j] === "0" && arr2[i][j] === "0" ? " " : "#";
         }
-        answer.push(r);
+        answer[i] = r;
     }
     
     return answer;
