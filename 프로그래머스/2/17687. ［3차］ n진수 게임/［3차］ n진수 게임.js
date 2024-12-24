@@ -1,19 +1,14 @@
-//todo
 function solution(n, t, m, p) {
-    let str = ''
+    let seq = '';
+    let answer = '';    // 튜브가 말해야 하는 숫자
     
-    let i = 0;
-    while (str.length < m * t) {
-        let elem = i.toString(n).toUpperCase().split('');
-        str += elem.join('');
-        i++;
+    for (let i = 0; i < t * m; i++) {
+        seq += i.toString(n).toUpperCase();
     }
     
-    let answer = '';
-    let j = p - 1;
-    while (answer.length < t) {
-        answer += str[j];
-        j += m;
+    for (let j = p - 1; j < seq.length; j += m) {
+        answer += seq[j];
+        if (answer.length === t) break;
     }
     
     return answer;
