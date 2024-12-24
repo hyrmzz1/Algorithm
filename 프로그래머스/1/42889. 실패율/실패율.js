@@ -1,14 +1,17 @@
 function solution(N, stages) {
-    const stage = Array.from({ length: N }, (_, i) => [i + 1, 0])  // [stageNum, failRate]
+    const answer = []  // [스테이지 번호, 실패율]
     
-    // 실패율 계산
-    stage.forEach(elem => {
-        elem[1] = stages.filter(x => x === elem[0]).length / stages.length; // failRate
-        stages = stages.filter(x => x !== elem[0]);
-    })
+    let user = stages.length;   // 사용자
+    let stage = 1;  // 스테이지 번호
+    stages.sort((a, b) => a - b);
     
-    // 정렬
-    stage.sort((a, b) => b[1] - a[1]);
+    while (stage < N + 1) {
+        let failUser = stages.filter((elem) => elem === stage).length;    // 해당 스테이지 클리어하지 못한 사용자 수
+        answer.push([stage, failUser / user]);
+        stage++;
+        user -= failUser;
+    }
     
-    return stage.map(elem => elem[0]);
+    answer.sort((a, b) => b[1] - a[1]);
+    return answer.map(elem => elem[0]);
 }
