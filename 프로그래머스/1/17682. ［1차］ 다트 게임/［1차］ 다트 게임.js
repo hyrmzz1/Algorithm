@@ -1,37 +1,30 @@
 function solution(dartResult) {
-    let score = [];
+    const bonus = new Map();
+    bonus.set("S", 1).set("D", 2).set("T", 3);
     
-    // 각 라운드 파싱
-    let temp = '';
-    for (let i = 0; i < dartResult.length; i++) {
-        if (!isNaN(dartResult[i]) && isNaN(dartResult[i - 1])) {
-            score.push(temp);
-            temp = '';
-        }
-        temp += dartResult[i];
-    }
-    score.push(temp);   // 3라운드
-    score.shift();
+    const answer = [];
+    const rounds = dartResult.match(/\d{1,2}[SDT][*#]?/g);
     
-    // 점수 계산
-    for (let j = 0; j < score.length; j++) {
-        let cnt = '';    // 점수
-        for (let elem of score[j]) {
-            if (!isNaN(elem)) cnt += elem;  // 점수
-            else {  // 보너스, 옵션
-                cnt = Number(cnt);
-                
-                if (elem === "D") cnt = Math.pow(cnt, 2);
-                else if (elem === "T") cnt = Math.pow(cnt, 3);
-                else if (elem === "*") {
-                    cnt *= 2;
-                    score[j - 1] *= 2;
+    rounds.forEach((round, idx) => {
+        let score = round.match(/\d+/g)[0];
+        let bonusIdx = score.length;
+        score = Number(score);
+        
+        for (let i = bonusIdx; i < round.length; i++) {
+            if (i === bonusIdx) {   // bonus
+                score = Math.pow(score, bonus.get(round[i]))
+            } else {    // option
+                if (round[i] === "*") {
+                    if (idx !== 0) answer[idx - 1] *= 2;
+                    score *= 2;
+                } else {    // round[i] === "#"
+                    score *= -1;
                 }
-                else if (elem === "#") cnt *= -1;
             }
         }
-        score[j] = cnt;
-    }
+        
+        answer.push(score);
+    })
     
-    return score.reduce((acc, curr) => acc + curr);
+    return answer.reduce((acc, curr) => acc + curr);
 }
