@@ -1,9 +1,12 @@
-function solution(lottos, win_nums) {
-    let rank = [6, 6, 5, 4, 3, 2, 1]    // 등수: rank[cnt]
+function solution(lottos, winNums) {
+    const ranks = [6, 6, 5, 4, 3, 2, 1] // idx: 순위, 값: 당첨 내용
     
-    // filter()는 조건에 만족하는 요소만으로 이루어진 새로운 배열을 반환함.
-    const cnt = lottos.filter(num => win_nums.includes(num)).length;
-    const zero = lottos.filter(num => num === 0).length;
+    const zeroCnt = lottos.filter(lotto => lotto === 0).length;    // 0 개수
+    const sameCnt = lottos.filter(lotto => winNums.includes(lotto)).length; // 일치 번호 개수
     
-    return [rank[cnt + zero], rank[cnt]];
+    // 최고 순위 -> 0 개수 + 일치 번호 개수만큼 일치, 최저 순위 -> 일치 번호 개수만큼 일치
+    const maxRank = ranks[zeroCnt + sameCnt];
+    const minRank = ranks[sameCnt];
+    
+    return [maxRank, minRank];
 }
