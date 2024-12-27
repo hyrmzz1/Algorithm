@@ -25,7 +25,7 @@ function solution(fees, records) {
     const answer = [];
     
     // 차량 번호
-    const cars = new Map([...new Set(records.map(record => (record.split(" ")[1])).sort((a, b) => Number(a) - Number(b)))].map(car => [car, []]));
+    const cars = new Map([...new Set(records.map(record => (record.split(" ")[1])).sort((a, b) => a - b))].map(car => [car, []]));
     
     // 차량별 입/출차 시간 기록
     records.forEach(record => {
