@@ -1,5 +1,5 @@
 function solution(gems) {
-    let answer = [1, gems.length];
+    let answer = [0, gems.length - 1];
     const type = new Set(gems).size;
     
     let left = 0;
@@ -10,8 +10,9 @@ function solution(gems) {
     while (right < gems.length) {
         if (gemsMap.size === type) {
             // 최단 구간 갱신
-            if (answer[1] - answer[0] > right - left) {
-                answer = [left + 1, right + 1];
+            if (right - left < answer[1] - answer[0] || 
+               (right - left === answer[1] - answer[0]) && left < answer[0]) {
+                answer = [left, right];
             }
             
             gemsMap.set(gems[left], gemsMap.get(gems[left]) - 1);
@@ -24,5 +25,5 @@ function solution(gems) {
         }
     }
     
-    return answer;
+    return [++answer[0], ++answer[1]];
 }
