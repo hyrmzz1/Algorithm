@@ -39,7 +39,7 @@ function solution(land) {
                     }
                 }
                 
-                // 2. 한 덩어리 다 구함
+                // 2. 한 덩어리 다 구함 - 해당 덩어리가 위치하는 열에서는 size만큼의 석유 존재
                 for (let i = minCol; i <= maxCol; i++) {
                     colByOil[i] += size;
                 }
@@ -47,6 +47,6 @@ function solution(land) {
         }
     }
     
-    
-    return Math.max(...colByOil);
+    // 3. 가장 많은 석유를 뽑을 수 있는 열
+    return colByOil.reduce((acc, cur) => Math.max(acc, cur), 0);
 }
