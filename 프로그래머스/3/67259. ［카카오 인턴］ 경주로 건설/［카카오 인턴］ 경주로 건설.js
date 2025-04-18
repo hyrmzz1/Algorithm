@@ -21,6 +21,8 @@ function solution(board) {
     while (queue.length) {
         const [r, c, dir, cost] = queue.shift();
         
+        if (cost > costs[r][c][dir]) continue;
+        
         for (let i = 0; i < 4; i++) {
             const nr = r + dr[i];
             const nc = c + dc[i];
