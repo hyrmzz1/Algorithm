@@ -1,16 +1,19 @@
 function solution(word) {
-    const vowels = ['A', 'E', 'I', 'O', 'U'];
     const dict = [];
+    const vowels = ['A', 'E', 'I', 'O', 'U'];
     
-    function dfs(level, newWord){
+    // 사전 만들기
+    const dfs = (newWord, length) => {
         dict.push(newWord);
-        if (level === vowels.length) return;
+        if (length === 5) return;
         
-        for (let i = 0; i < vowels.length; i++) {
-            dfs(level + 1, newWord + vowels[i]);
+        for (const vowel of vowels) {
+            dfs(newWord + vowel, length + 1)
         }
     }
     
-    dfs(0, '');
+    dfs('', 0);
+    
+    // word가 사전에서 몇 번째 단어인지 return
     return dict.indexOf(word);
 }
