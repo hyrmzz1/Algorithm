@@ -1,8 +1,9 @@
 function solution(sizes) {
+    let answer = 1;
     const sortedSizes = sizes.map(row => row.sort((a, b) => b - a));
     
-    const width = Math.max(...sortedSizes.map(size => size[0]));
-    const height = Math.max(...sortedSizes.map(size => size[1]));
+    answer *= Math.max(...sortedSizes.map(size => size[0]));
+    answer *= Math.max(...sortedSizes.map(size => size[1]));
     
-    return width * height;
+    return answer;
 }
