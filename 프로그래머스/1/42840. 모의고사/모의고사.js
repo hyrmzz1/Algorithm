@@ -1,33 +1,24 @@
+const supoja = {
+    1: { pattern: [1, 2, 3, 4, 5], score: 0 },
+    2: { pattern: [2, 1, 2, 3, 2, 4, 2, 5], score: 0 },
+    3: { pattern: [3, 3, 1, 1, 2, 2, 4, 4, 5, 5], score: 0 },
+}
+
 function solution(answers) {
-    const one = {
-        name: 1,
-        type: [1, 2, 3, 4, 5],
-        ans: 0
-    };
-    
-    const two = {
-        name: 2,
-        type: [2, 1, 2, 3, 2, 4, 2, 5],
-        ans: 0
-    };
-    
-    const three = {
-        name: 3,
-        type: [3, 3, 1, 1, 2, 2, 4, 4, 5, 5],
-        ans: 0
-    };
-    
-    for (let i = 0; i < answers.length; i++) {
-        [one, two, three].forEach(obj => {
-            if (obj.type[i % obj.type.length] === answers[i]) obj.ans += 1;
-        });
+    for (let [key, value] of Object.entries(supoja)) {
+        const pattern = value.pattern;
+        
+        for (let i = 0; i < answers.length; i++) {
+            if (answers[i] === pattern[i % pattern.length]) {
+                value.score++;
+            }
+        }
     }
     
-    let maxAns = Math.max(one.ans, two.ans, three.ans);
-    let maxPerson = [];
-    [one, two, three].forEach(obj => {
-        if (obj.ans === maxAns) maxPerson.push(obj.name);
-    });
+    const maxScore = Math.max(...Object.values(supoja).map((obj) => obj.score));
+    const result = Object.entries(supoja)
+                        .filter(([key, value]) => value.score === maxScore)
+                        .map(([key, value]) => Number(key));
     
-    return maxPerson;
+    return result;
 }
