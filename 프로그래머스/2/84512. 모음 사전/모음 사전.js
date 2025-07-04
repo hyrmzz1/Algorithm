@@ -1,20 +1,20 @@
-// 1. 사전 배열 만들기
-// 2. 사전 배열에서 word의 인덱스 구하기
 function solution(word) {
-    const dict = [];
     const vowels = ['A', 'E', 'I', 'O', 'U'];
     
+    const dict = new Map();
+    let index = 0;
+    
     const dfs = (curWord, depth) => {
-        dict.push(curWord);
+        dict.set(curWord, index++);
         
         if (depth === 5) return;
         
         for (const vowel of vowels) {
-            dfs(curWord+vowel, depth + 1);
+            dfs(curWord + vowel, depth + 1);
         }
     }
     
     dfs('', 0);
     
-    return dict.indexOf(word);
+    return dict.get(word);
 }
