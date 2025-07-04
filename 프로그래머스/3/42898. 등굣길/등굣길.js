@@ -1,24 +1,21 @@
 function solution(m, n, puddles) {
-    const arr = Array.from(Array(n + 1), () => new Array(m + 1).fill(0));
+    const dp = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+    dp[1][1] = 1;   // 초기값 세팅 (집)
     
-    puddles.forEach(puddle => { arr[puddle[1]][puddle[0]] = -1; })
+    const puddleSet = new Set();
+    for (const [c, r] of puddles) {
+        puddleSet.add(`${r}-${c}`);
+    }
     
-    // (1,1)에서 출발
     for (let i = 1; i <= n; i++) {
         for (let j = 1; j <= m; j++) {
-            if (i === 1 && j === 1) {
-                arr[i][j] = 1;  // 출발 지점 초기화
-                continue;
-            }
+            // 집, 웅덩이는 패스
+            if (i === 1 && j === 1) continue;
+            if (puddleSet.has(`${i}-${j}`)) continue;
             
-            if (arr[i][j] === -1) { // 웅덩이
-                arr[i][j] = 0;
-                continue;
-            }
-            
-            arr[i][j] += (arr[i - 1][j] + arr[i][j - 1]) % 1000000007;
+            dp[i][j] = (dp[i - 1][j] + dp[i][j - 1]) % 1000000007;
         }
     }
     
-    return arr[n][m];
+    return dp[n][m];
 }
