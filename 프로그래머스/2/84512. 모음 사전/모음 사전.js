@@ -1,19 +1,20 @@
+// 1. 사전 배열 만들기
+// 2. 사전 배열에서 word의 인덱스 구하기
 function solution(word) {
     const dict = [];
     const vowels = ['A', 'E', 'I', 'O', 'U'];
     
-    // 사전 만들기
-    const dfs = (newWord, length) => {
-        dict.push(newWord);
-        if (length === 5) return;
+    const dfs = (curWord, depth) => {
+        dict.push(curWord);
+        
+        if (depth === 5) return;
         
         for (const vowel of vowels) {
-            dfs(newWord + vowel, length + 1)
+            dfs(curWord+vowel, depth + 1);
         }
     }
     
     dfs('', 0);
     
-    // word가 사전에서 몇 번째 단어인지 return
     return dict.indexOf(word);
 }
