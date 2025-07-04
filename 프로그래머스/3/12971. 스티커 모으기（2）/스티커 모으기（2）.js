@@ -8,6 +8,13 @@ function solution(sticker) {
     dp1[1] = sticker[0];
     dp2[1] = sticker[1];
     
+    // 예외 처리
+    if (len === 1) {
+        return sticker[0];
+    } else if (len === 2) {
+        return Math.max(sticker[0], sticker[1]);
+    }
+    
     for (let i = 2; i < len; i++) {
         dp1[i] = Math.max(sticker[i] + dp1[i - 2], dp1[i - 1]);
         dp2[i] = Math.max(sticker[i] + dp2[i - 2], dp2[i - 1]);
