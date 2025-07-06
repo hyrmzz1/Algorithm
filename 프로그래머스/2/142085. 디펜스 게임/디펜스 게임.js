@@ -1,41 +1,27 @@
-// 이분탐색 - "최대 몇 라운드"
+// 이분 탐색 기준: 라운드 수
 function solution(n, k, enemy) {
-    let left = 0;
-    let rigth = enemy.length;
+    let answer = 0;
+    let left = 0, right = enemy.length;
     
-    while (left <= rigth) {
-        let mid = Math.floor((left + rigth) / 2);
+    // 0에서 round까지 진행 가능한지 판별
+    const canSurvive = (round) => {
+        if (round === 0 || round < k) return true;
         
-        // 0 ~ mid까지의 라운드 막을 수 있는지 확인
-        const round = enemy.slice(0, mid).sort((a, b) => b - a);
+        const enemies = enemy.slice(0, round).sort((a, b) => b - a);
         
-        // 0 ~ mid까지의 라운드에 모두 무족권 사용할 수 있는 경우 -> 통과
-        if (mid <= k) {
-            left = mid + 1;
-            continue;
-        }
-        
-        let bool = true;
-        let sum = 0;
-        // 무족권 스킬 없이 구간 통과 가능 여부 확인
-        for (let i = k; i < round.length; i++) {
-            sum += round[i];
-            
-            // 이 라운드 통과 못함
-            if (sum > n) {
-                bool = false;
-                break;
-            }
-        }
+        const needSoldiers = enemies.slice(k).reduce((acc, cur) => acc + cur, 0);
+        return needSoldiers <= n;
+    }
     
-        if (bool) {
-            // 라운드 통과 가능
-            left = mid + 1;
+    while (left < right) {
+        const mid = Math.floor((left + right + 1) / 2);
+        
+        if (canSurvive(mid)) {
+            left = mid;
         } else {
-            // 라운드 통과 불가
-            rigth = mid -1;
+            right = mid - 1;
         }
     }
     
-    return rigth;
+    return left;
 }
