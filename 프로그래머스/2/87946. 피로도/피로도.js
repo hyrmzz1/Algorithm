@@ -1,21 +1,49 @@
-function solution(k, dungeons) {
-    let answer = 0;
-    const visited = new Array(dungeons.length).fill(false);
+// 완전 탐색 (모든 경우의 수를 생성하고 각각을 확인)
+
+// arr에 대한 순열 구하는 함수
+const getPermutations = (arr) => {
+    if (arr.length === 1) return arr;
     
-    const DFS = (piro, cnt) => {
-        answer = Math.max(cnt, answer);
-        
-        // dungeons[i]에 방문하지 않았고, piro가 dungeons[i][0] 이상일 때
-        for (let i = 0; i < dungeons.length; i++) {
-            if (!visited[i] && piro >= dungeons[i][0]) {
-                visited[i] = true;
-                DFS(piro - dungeons[i][1], cnt + 1);    // ++cnt 사용시 재귀 호출에서 돌아온 후에도 증가된 값이 유지되어 다음 경로를 탐색할 때도 누적된 값이 사용됨.
-                visited[i] = false;
-            }
+    const result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        const current = arr[i];
+        const remaining = arr.slice(0, i).concat(arr.slice(i + 1));
+
+        const permutations = getPermutations(remaining);
+
+        for (let perm of permutations) {
+            result.push([current].concat(perm));
         }
     }
+
+    return result;
+}
+
+function solution(k, dungeons) {
+    let answer = 0; // 탐색 가능한 최대 던전 수
+    const dungeonIdx = Array.from({ length: dungeons.length }, (_, idx) => idx);
     
-    DFS(k, 0);
+    // 1. 던전 탐색 순서 순열 구하기
+    const permutations = getPermutations(dungeonIdx);
+    
+    // 2. 각각의 순열에서 최대 던전 수 구하기
+    for (let i = 0; i < permutations.length; i++) {
+        let piro = k;
+        let count = 0;  // 해당 순열에서 탐색 가능한 던전 수
+        
+        for (let j = 0; j < permutations[i].length; j++) {
+            const dungeonIdx = permutations[i][j];
+            const [need, somo] = dungeons[dungeonIdx];
+            
+            if (piro < need) continue;
+
+            piro -= somo;
+            count++;
+        }
+        
+        answer = Math.max(answer, count);
+    }
     
     return answer;
 }
