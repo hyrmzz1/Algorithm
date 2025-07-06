@@ -24,7 +24,7 @@ function solution(gems) {
             
             // 왼쪽 포인터 확장 및 보석 제거
             const leftGem = gems[left];
-            gemsMap.set(leftGem, (gemsMap.get(leftGem) || 0) - 1);
+            gemsMap.set(leftGem, gemsMap.get(leftGem) - 1);
             
             if (gemsMap.get(leftGem) === 0) {
                 gemsMap.delete(leftGem);
