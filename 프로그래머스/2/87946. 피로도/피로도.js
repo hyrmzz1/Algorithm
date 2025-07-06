@@ -28,22 +28,21 @@ function solution(k, dungeons) {
     const permutations = getPermutations(dungeonIdx);
     
     // 2. 각각의 순열에서 최대 던전 수 구하기
-    for (let i = 0; i < permutations.length; i++) {
+    permutations.forEach(perm => {
         let piro = k;
         let count = 0;  // 해당 순열에서 탐색 가능한 던전 수
         
-        for (let j = 0; j < permutations[i].length; j++) {
-            const dungeonIdx = permutations[i][j];
+        perm.forEach(dungeonIdx => {
             const [need, somo] = dungeons[dungeonIdx];
             
-            if (piro < need) continue;
-
-            piro -= somo;
-            count++;
-        }
+            if (piro >= need) {
+                piro -= somo;
+                count++;
+            }
+        })
         
         answer = Math.max(answer, count);
-    }
+    })
     
     return answer;
 }
