@@ -8,8 +8,8 @@ function solution(n, k, enemy) {
         if (round === 0 || round < k) return true;
         
         const enemies = enemy.slice(0, round).sort((a, b) => b - a);
-        
         const needSoldiers = enemies.slice(k).reduce((acc, cur) => acc + cur, 0);
+        
         return needSoldiers <= n;
     }
     
