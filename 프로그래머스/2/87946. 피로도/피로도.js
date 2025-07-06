@@ -8,14 +8,12 @@ function solution(k, dungeons) {
         for (let i = 0; i < dungeons.length; i++) {
             const [need, somo] = dungeons[i];
             
-            // 방문 가능 여부 확인
-            if (nowPiro < need) continue;
-            if (visited[i]) continue;
-            
-            visited[i] = true;
-            dfs(nowPiro - somo, count + 1);
-            
-            visited[i] = false;
+            // 방문 가능할 경우
+            if (nowPiro >= need && !visited[i]) {            
+                visited[i] = true;
+                dfs(nowPiro - somo, count + 1);
+                visited[i] = false;
+            }
         }
     }
     
