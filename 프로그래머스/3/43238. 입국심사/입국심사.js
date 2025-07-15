@@ -14,9 +14,11 @@ function solution(n, times) {
         
         for (const time of times) {
             totalReviewee += Math.floor(limit / time);
+            
+            if (totalReviewee >= n) return true;
         }
         
-        return totalReviewee >= n ? true : false;
+        return false;
     }
     
     while (left < right) {
