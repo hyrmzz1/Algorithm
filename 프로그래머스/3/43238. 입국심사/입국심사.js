@@ -1,18 +1,33 @@
+// 이분 탐색 판단 근거
+// 1. 입력의 최대값이 10억 - O(n) 순회로는 시간 초과
+// 2. 최대/최소값을 구하는 문제
+// 3. 결정 문제로 변환 가능 ("모든 사람이 심사받는 최소 시간?" →"시간 T 내에 모든 사람이 심사받을 수 있는가?")
+// 4. 단조성: 시간 T에서 불가능하면 → T보다 작은 시간에서도 불가능 / 시간 T에서 가능하면 → T보다 큰 시간에서도 가능
+// 5. 직접 시뮬레이션 돌리기는 복잡하지만 검증하기에는 용이
+
 function solution(n, times) {
-    let left = 0;
-    let right = n * times[times.length - 1];    // 가장 오래 걸리는 심사관에게 모든 사람이 심사받는 경우 (최대값)
+    let left = 1;
+    let right = n * Math.max(...times) + 1;
     
-    while (left <= right) {
-        let mid = Math.floor((left + right) / 2);
+    const canReviewAll = (limit) => {
+        let totalReviewee = 0;  // 심사받은 사람 수
         
-        const nSum = times.reduce((acc, curr) => acc + Math.floor(mid / curr), 0);
+        for (const time of times) {
+            totalReviewee += Math.floor(limit / time);
+        }
         
-        if (nSum >= n) { // mid분간 n명 이상 심사 가능
-            right = mid - 1; // 시간 줄이기
-        } else {    // mid분간 모두 심사 불가
-            left = mid + 1;    // 시간 늘리기
+        return totalReviewee >= n ? true : false;
+    }
+    
+    while (left < right) {
+        let mid = Math.floor((left + right) / 2)
+        
+        if (canReviewAll(mid)) {
+            right = mid;
+        } else {
+            left = mid + 1;
         }
     }
     
-    return left;
+    return right;
 }
