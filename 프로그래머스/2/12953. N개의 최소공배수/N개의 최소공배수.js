@@ -5,8 +5,10 @@
 // 최대공약수 구하기
 const GCD = (a, b) => {
     // 유클리드 호제법
-    if (b !== 0) {
-        return GCD(b, a % b);
+    while (b !== 0) {
+        let temp = a;
+        a = b;
+        b = temp % b;
     }
     
     return a;
@@ -14,7 +16,7 @@ const GCD = (a, b) => {
 
 // 최소공배수 구하기
 const LCM = (a, b) => {
-    return (a * b) / GCD(a, b)
+    return (a * b) / GCD(a, b);
 }
 
 function solution(arr) {
