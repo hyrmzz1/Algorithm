@@ -7,7 +7,7 @@ function solution(k, dungeons) {
     
     const dfs = (currPiro, count) => {
         maxCount = Math.max(maxCount, count);
-        if (maxCount === dungeons.length) return maxCount;
+        if (maxCount === dungeons.length) return;
         
         for (let i = 0; i < dungeons.length; i++) {
             // 탐험 불가
