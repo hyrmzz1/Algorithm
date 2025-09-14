@@ -1,5 +1,5 @@
 function solution(answers) {
-    const score = new Map();   // 수포자별 점수
+    const scores = new Array(3).fill(0);
     const patterns = [
         [1, 2, 3, 4, 5],
         [2, 1, 2, 3, 2, 4, 2, 5],
@@ -7,19 +7,23 @@ function solution(answers) {
     ];
     
     for (let i = 0; i < answers.length; i++) {
-        if (answers[i] === patterns[0][i % 5]) {
-            score.set(0, (score.get(0) ?? 0) + 1)
-        }
-        
-        if (answers[i] === patterns[1][i % 8]) {
-            score.set(1, (score.get(1) ?? 0) + 1)
-        }
-        
-        if (answers[i] === patterns[2][i % 10]) {
-            score.set(2, (score.get(2) ?? 0) + 1)
+        for (let j = 0; j < patterns.length; j++) {
+            const patternLength = patterns[j].length;
+            
+            if (answers[i] === patterns[j][i % patternLength]) {
+                scores[j]++;
+            }
         }
     }
     
-    const maxScore = Math.max(...score.values())
-    return Array.from(score.entries()).filter(elem => elem[1] === maxScore).map(elem => elem[0] + 1).sort((a, b) => a - b);
+    const maxScore = Math.max(...scores);
+    const result = [];
+    
+    for (let i = 0; i < scores.length; i++) {
+        if (scores[i] === maxScore) {
+            result.push(i + 1);
+        }
+    }
+    
+    return result;
 }
