@@ -1,25 +1,18 @@
 function solution(priorities, location) {
-    let answer = 0; // 순서
-    const queue = priorities.map((priority, index) => ({
-        priority: priority,
-        originalIndex: index
-    }));
+    const queue = priorities.map((priority, index) => ({ priority, index}));
+    let order = 0; // 순서
     
     while (queue.length > 0) {
-        const maxPriority = Math.max(...queue.map(p => p.priority));    // 실행 대기 큐에서 가장 높은 우선순위
-        
         const currProcess = queue.shift();
         
-        if (currProcess.priority === maxPriority) {
-            answer++;
-            
-            if (currProcess.originalIndex === location) {
-                break;
-            }
-        } else {
+        if (queue.some(p => p.priority > currProcess.priority)) {
             queue.push(currProcess);
+        } else {
+            order++;
+            
+            if (currProcess.index === location) {
+               return order;
+            }
         }
     }
-    
-    return answer;
 }
