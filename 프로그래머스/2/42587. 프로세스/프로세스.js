@@ -1,17 +1,25 @@
 function solution(priorities, location) {
-    let dict = priorities.map((priority, idx) => [priority, idx])   // 실행 대기
-    let maxProcess = Math.max(...dict.map(x => x[0]));
-    const runIdx = [];
+    let answer = 0; // 순서
+    const queue = priorities.map((priority, index) => ({
+        priority: priority,
+        originalIndex: index
+    }));
     
-    while (dict.length) {
-        let [currProcess, currIdx] = dict.shift();
+    while (queue.length > 0) {
+        const maxPriority = Math.max(...queue.map(p => p.priority));    // 실행 대기 큐에서 가장 높은 우선순위
         
-        if (currProcess < maxProcess) {
-            dict.push([currProcess, currIdx]);
+        const currProcess = queue.shift();
+        
+        if (currProcess.priority === maxPriority) {
+            answer++;
+            
+            if (currProcess.originalIndex === location) {
+                break;
+            }
         } else {
-            runIdx.push(currIdx);
-            if (currIdx === location) return runIdx.length;
-            maxProcess = Math.max(...dict.map(x => x[0]));  // 최대값 갱신
+            queue.push(currProcess);
         }
     }
+    
+    return answer;
 }
