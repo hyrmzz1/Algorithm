@@ -1,18 +1,23 @@
 function solution(priorities, location) {
-    const queue = priorities.map((priority, index) => ({ priority, index}));
-    let order = 0; // 순서
+    const queue = priorities.map((priority, index) => ({ priority, index }));
+    let order = 0;
+    let i = 0;  // 실행 대기 큐 맨 앞 인덱스
     
-    while (queue.length > 0) {
-        const currProcess = queue.shift();
+    while (true) {
+        const currProcess = queue[i];
+        const maxPriority = Math.max(...queue.slice(i).map(p => p.priority));
         
-        if (queue.some(p => p.priority > currProcess.priority)) {
+        if (currProcess.priority < maxPriority) {
             queue.push(currProcess);
         } else {
             order++;
             
             if (currProcess.index === location) {
-               return order;
+               break;
             }
         }
+        i++;
     }
+
+    return order;
 }
