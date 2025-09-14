@@ -1,24 +1,25 @@
-const supoja = {
-    1: { pattern: [1, 2, 3, 4, 5], score: 0 },
-    2: { pattern: [2, 1, 2, 3, 2, 4, 2, 5], score: 0 },
-    3: { pattern: [3, 3, 1, 1, 2, 2, 4, 4, 5, 5], score: 0 },
-}
-
 function solution(answers) {
-    for (let [key, value] of Object.entries(supoja)) {
-        const pattern = value.pattern;
+    const score = new Map();   // 수포자별 점수
+    const patterns = [
+        [1, 2, 3, 4, 5],
+        [2, 1, 2, 3, 2, 4, 2, 5],
+        [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+    ];
+    
+    for (let i = 0; i < answers.length; i++) {
+        if (answers[i] === patterns[0][i % 5]) {
+            score.set(0, (score.get(0) ?? 0) + 1)
+        }
         
-        for (let i = 0; i < answers.length; i++) {
-            if (answers[i] === pattern[i % pattern.length]) {
-                value.score++;
-            }
+        if (answers[i] === patterns[1][i % 8]) {
+            score.set(1, (score.get(1) ?? 0) + 1)
+        }
+        
+        if (answers[i] === patterns[2][i % 10]) {
+            score.set(2, (score.get(2) ?? 0) + 1)
         }
     }
     
-    const maxScore = Math.max(...Object.values(supoja).map((obj) => obj.score));
-    const result = Object.entries(supoja)
-                        .filter(([key, value]) => value.score === maxScore)
-                        .map(([key, value]) => Number(key));
-    
-    return result;
+    const maxScore = Math.max(...score.values())
+    return Array.from(score.entries()).filter(elem => elem[1] === maxScore).map(elem => elem[0] + 1).sort((a, b) => a - b);
 }
