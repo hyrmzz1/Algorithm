@@ -13,6 +13,7 @@ function solution(m, n, puddles) {
         for (let j = 1; j <= m; j++) {
             // 웅덩이 -> 스킵
             if (dp[i][j] === -1) {
+                dp[i][j] = 0;
                 continue;
             }
             
@@ -20,10 +21,7 @@ function solution(m, n, puddles) {
                 continue;
             }
             
-            const top = dp[i - 1][j] === -1 ? 0 : dp[i - 1][j];
-            const left = dp[i][j - 1] === -1 ? 0 : dp[i][j - 1];
-            
-            dp[i][j] = (top + left) % MOD;
+            dp[i][j] = (dp[i - 1][j] + dp[i][j - 1]) % MOD;
         }
     }
     
